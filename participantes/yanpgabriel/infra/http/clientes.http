@@ -1,0 +1,68 @@
+@api = http://localhost:8080/
+@resource = clientes
+@idCliente = 1
+
+### Extrato
+GET {{api}}/{{resource}}/{{idCliente}}/extrato
+Content-Type: */*
+
+### Transacao - Credito
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+    "valor": 100000,
+    "tipo" : "c",
+    "descricao" : "credito"
+}
+
+### Transacao - Debito
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+  "valor": 100000,
+  "tipo" : "d",
+  "descricao" : "debito"
+}
+
+
+### Transacao - Invalida
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+    "valor": 100000,
+    "tipo" : "a",
+    "descricao" : "teste"
+}
+
+### Transacao - Invalida
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+    "valor": 100000,
+    "tipo" : "c",
+    "descricao" : ""
+}
+
+### Transacao - Invalida
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+    "valor": 0,
+    "tipo" : "c",
+    "descricao" : "asdasdas"
+}
+
+### Transacao - Invalida
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+    "valor": 10,
+    "tipo" : "c",
+    "descricao" : "12345678901"
+}
