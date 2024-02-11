@@ -1,5 +1,0 @@
- api01 Pulling 
- api02 Pulling 
- api01 Error 
- api02 Error 
-Error response from daemon: Get "https://registry-1.docker.io/v2/": net/http: TLS handshake timeout
