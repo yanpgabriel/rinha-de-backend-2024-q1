@@ -1,5 +1,3 @@
-create sequence public.cliente_seq start with 1 increment by 10;
-
 create table public.clientes
 (
     id          integer not null,
@@ -22,10 +20,14 @@ create table public.transacoes
     primary key (id)
 );
 
-alter table if exists public.transacoes add constraint FK_cliente foreign key (id_cliente) references public.clientes;
+create sequence public.cliente_seq start with 1 increment by 10;
 
-INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual) VALUES (1, 100000, 0, 0);
-INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual) VALUES (2, 80000, 0, 0);
-INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual) VALUES (3, 1000000, 0, 0);
-INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual) VALUES (4, 10000000, 0, 0);
-INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual) VALUES (5, 500000, 0, 0);
+alter table if exists public.transacoes
+    add constraint FK_cliente foreign key (id_cliente) references public.clientes;
+
+INSERT INTO public.clientes (id, limite, saldo_inicial, saldo_atual)
+VALUES (1, 100000, 0, 0),
+       (2, 80000, 0, 0),
+       (3, 1000000, 0, 0),
+       (4, 10000000, 0, 0),
+       (5, 500000, 0, 0);

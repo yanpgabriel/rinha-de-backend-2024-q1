@@ -1,9 +1,11 @@
 package dev.yanpgabriel.rinha.modules.transacao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
 import java.time.LocalDateTime;
 
+@RegisterForReflection
 public class TransacaoDTO {
     public Integer valor;
     public TipoTransacao tipo;

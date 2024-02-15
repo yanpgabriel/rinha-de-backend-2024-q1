@@ -1,5 +1,8 @@
 package dev.yanpgabriel.rinha.modules.cliente;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class SaldoResumidoDTO {
 
     public Integer saldo;

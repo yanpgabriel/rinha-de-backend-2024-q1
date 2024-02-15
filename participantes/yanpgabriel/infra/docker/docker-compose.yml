@@ -7,13 +7,15 @@ version: "3"
 services:
   database:
     image: postgres:16-alpine
-    #command: postgres -c 'max_connections=40' -c 'fsync=off' -c 'synchronous_commit=off' -c 'checkpoint_timeout=1d' -c 'full_page_writes=false'
-    command: postgres -c 'max_connections=40'
+    command: postgres -c 'max_connections=20'
     ports:
       - "5432:5432"
     env_file: ../../.env
+    restart: no
     volumes:
       - ../sql/script.sql:/docker-entrypoint-initdb.d/script.sql
+    networks:
+      - default
     deploy:
       resources:
         limits:
@@ -27,10 +29,12 @@ services:
       retries: 20
 
   api01: &api
-    image: yanpgabriel/rinha-quarkus-jvm:latest
+    image: yanpgabriel/rinha-quarkus-native
     env_file: ../../.env
-    environment:
-      - QUARKUS_HTTP_PORT=8080
+    ports:
+      - "8081:8080"
+    networks:
+      - default
     depends_on:
       database:
         condition: service_healthy
@@ -43,8 +47,8 @@ services:
   api02:
     # Essa sintaxe reusa o que foi declarado em 'api01'.
     <<: *api
-    environment:
-      - QUARKUS_HTTP_PORT=8080
+    ports:
+      - "8082:8080"
 
   nginx:
     image: nginx:latest
@@ -55,8 +59,13 @@ services:
       - api02
     ports:
       - "9999:9999"
+    networks:
+      - default
     deploy:
       resources:
         limits:
           cpus: "0.2"
           memory: "50MB"
+networks:
+  default:
+    driver: bridge

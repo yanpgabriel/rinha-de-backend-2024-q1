@@ -66,3 +66,13 @@ Content-Type: application/json
     "tipo" : "c",
     "descricao" : "12345678901"
 }
+
+### Transacao - Invalida
+POST {{api}}/{{resource}}/{{idCliente}}/transacoes
+Content-Type: application/json
+
+{
+  "valor": 1.2,
+  "tipo": "d",
+  "descricao": "devolve"
+}

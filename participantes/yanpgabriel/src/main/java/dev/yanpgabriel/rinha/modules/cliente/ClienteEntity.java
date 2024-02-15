@@ -1,9 +1,12 @@
 package dev.yanpgabriel.rinha.modules.cliente;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 
 @Entity(name = "clientes")
+@Cacheable
+@RegisterForReflection
 public class ClienteEntity extends PanacheEntityBase {
 
     @Id

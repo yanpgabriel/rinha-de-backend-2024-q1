@@ -3,11 +3,14 @@ package dev.yanpgabriel.rinha.modules.transacao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.yanpgabriel.rinha.modules.cliente.ClienteEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "transacoes")
+@Cacheable
+@RegisterForReflection
 public class TransacaoEntity extends PanacheEntityBase {
 
     @Id

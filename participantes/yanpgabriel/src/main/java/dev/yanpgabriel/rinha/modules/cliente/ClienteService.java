@@ -9,6 +9,7 @@ import dev.yanpgabriel.rinha.modules.transacao.TransacaoDTO;
 import dev.yanpgabriel.rinha.modules.transacao.TransacaoEntity;
 import dev.yanpgabriel.rinha.modules.transacao.TransacaoEntradaDTO;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
@@ -17,14 +18,15 @@ import java.util.List;
 @ApplicationScoped
 public class ClienteService {
 
-    public ClienteEntity clienteExiste(Integer idCliente) {
-        var cliente = ClienteEntity.findByIdOptional(idCliente)
+    public ClienteEntity clienteExiste(Integer idCliente, LockModeType lockModeType) {
+        var cliente = ClienteEntity.findByIdOptional(idCliente, lockModeType)
                 .orElseThrow(NaoEncontradoException::new);
         return (ClienteEntity) cliente;
     }
 
+    @Transactional
     public ExtratoDTO obterExtrato(Integer idCliente) {
-        var clienteEntity = clienteExiste(idCliente);
+        var clienteEntity = clienteExiste(idCliente, LockModeType.PESSIMISTIC_WRITE);
         ExtratoDTO extratoDTO = new ExtratoDTO();
         SaldoDTO saldoDTO = new SaldoDTO();
 
@@ -47,7 +49,7 @@ public class ClienteService {
 
     @Transactional
     public SaldoResumidoDTO efetuarTransacao(Integer idCliente, TransacaoEntradaDTO transacaoEntradaDTO) {
-        var clienteEntity = clienteExiste(idCliente);
+        var clienteEntity = clienteExiste(idCliente, LockModeType.PESSIMISTIC_WRITE);
         var novoSaldo = 0;
 
         if (transacaoEntradaDTO.tipo == TipoTransacao.c) {
