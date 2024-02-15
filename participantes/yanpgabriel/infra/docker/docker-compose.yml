@@ -29,7 +29,7 @@ services:
       retries: 20
 
   api01: &api
-    image: yanpgabriel/rinha-quarkus-native
+    image: yanpgabriel/quarkus-rinha-2024-q1:latest
     env_file: ../../.env
     ports:
       - "8081:8080"

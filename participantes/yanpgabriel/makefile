@@ -11,7 +11,13 @@ build-micro:
 	docker build -f src/main/docker/Dockerfile.native-micro -t yanpgabriel/rinha-quarkus-native-micro .
 
 build-final:
-	docker buildx build --platform linux/amd64 -t yanpgabriel/rinha-quarkus:latest .
+	docker buildx build --platform linux/amd64,linux/arm64 --push -f src/main/docker/Dockerfile.native-micro -t yanpgabriel/quarkus-rinha-2024-q1:latest .
+
+build-for-all:
+	docker buildx build --platform linux/amd64,linux/arm64,linux/arm64v8 --push -f src/main/docker/Dockerfile.native-micro -t yanpgabriel/quarkus-rinha-2024-q1:latest .
+
+push-iamge:
+	docker push yanpgabriel/quarkus-rinha-2024-q1:latest
 
 up:
 	docker compose -f infra/docker/docker-compose.yml up -d
