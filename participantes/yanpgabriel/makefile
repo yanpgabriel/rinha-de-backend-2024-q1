@@ -7,5 +7,6 @@ build-final:
 
 up:
 	docker compose -f infra/docker/docker-compose.yml up -d
+
 down:
 	docker compose -f infra/docker/docker-compose.yml down
